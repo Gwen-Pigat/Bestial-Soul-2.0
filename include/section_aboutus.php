@@ -15,66 +15,54 @@ echo $about_us->setLink("index.php?about_us&biographie",$about_us->setContent("B
 
 }
 
-if (isset($_GET['news'])) {
-  http://www.french-metal.com/chroniques/bestialsoul.html#.VJbeIF4B8
+if (isset($_GET['news']) || isset($_GET['chroniques']) || isset($_GET['biographie'])) {
 
-echo $about_us->setContent("Les news","h2","text-center news","news");
+  $url = substr($_SERVER["REQUEST_URI"],45);
 
-  $query = $link->query("SELECT * FROM News ORDER BY id DESC");
-
-  while ($row = $query->fetch_object()) { 
-
-  echo $about_us->setOpenTag("div","bloc_news col-md-12");
-
-    echo $about_us->setImg("col-md-12","img/news/$row->id.jpg","left");
-    echo $about_us->setContent("$row->title","h3");
-    echo $about_us->setContent("$row->content","p");
-
-  echo $about_us->setCloseTag("div");
-
+  switch ($url) {
+    case 'news':
+      $title = "news"; $sql = "SELECT * FROM News ORDER BY id DESC";
+      break;
+    case 'chroniques':
+      $title = "chronique"; $sql = "SELECT * FROM Chronique ORDER BY id DESC";
+      break;
+    case 'biographie':
+      $title = "biographie"; $sql = "SELECT content FROM Biographie ORDER BY id DESC";
+      break;
   }
 
-}
-
-if (isset($_GET['chroniques'])) {
-
-echo $about_us->setContent("Les chroniques","h2","text-center chronique","chronique");
-
-  $query = $link->query("SELECT * FROM Chronique ORDER BY id DESC")or die("Erreur query");
+echo $about_us->setLink("index.php?about_us",$about_us->setContent(ucfirst($title),"h2","text-center col-lg-12 col-md-12 col-sm-12 col-xs-12",$title)); 
+  
+  $query = $link->query($sql);
 
   while ($row = $query->fetch_object()) { 
 
-  echo $about_us->setOpenTag("div","bloc_chroniques col-md-4 col-sm-4 col-xs-4");
-
-    echo $about_us->setLink(
-      "$row->href",$about_us->setContent("$row->title","h4","text-center")
+   switch ($url) {
+    case 'news':
+      $content = $about_us->setOpenTag("div","bloc_news col-md-12")
+      .$content = $about_us->setImg("col-md-12","img/news/$row->id.jpg","left")
+      .$about_us->setContent("$row->title","h3")
+      .$about_us->setContent("$row->content","p")
+      .$about_us->setCloseTag("div");
+      break;
+    case 'chroniques':
+      $content = $about_us->setOpenTag("div","bloc_chroniques col-md-4 col-sm-4 col-xs-4")
+      .$about_us->setLink("$row->href",$about_us->setContent("$row->title","h4","text-center")
       .$about_us->setImg("col-lg-12 col-md-12 col-sm-12 col-xs-12","img/chroniques/$row->id.jpg"),1
-      );
+      )
+      .$about_us->setCloseTag("div");
+      break;
+    case 'biographie':
+      $content = $about_us->setOpenTag("div","col-lg-12 col-md-12 col-sm-12 col-xs-12")
+      .$about_us->setContent("$row->content","p")
+      .$about_us->setCloseTag("div");
+  
+  }
 
-  echo $about_us->setCloseTag("div");
-
+  echo $content;
   }
 
 }
-
-if (isset($_GET['biographie'])) {
-
-  echo $about_us->setContent("Biographie","h2","text-center chronique","biographie");
-
-  $query = $link->query("SELECT * FROM Biographie")or die("Erreur query");
-
-  while ($row = $query->fetch_object()) { 
-
-  echo $about_us->setOpenTag("div","col-lg-12 col-md-12 col-sm-12 col-xs-12");
-
-    echo $about_us->setContent("$row->content","p");
-
-  echo $about_us->setCloseTag("div");
-
-  } 
-
-}
-
 
 echo $about_us->setCloseTag("div");
 
