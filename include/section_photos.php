@@ -14,42 +14,56 @@ $(document).ready(function() {
 
 </script>
 
-<div class="container">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 photo_gallery">
-    
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery">
-      <?php for ($num = 1; $num <= 56; $num++ ) { ?>
-      <a class="gallery_1 fancybox-button" rel="gallery_1 fancybox-button" href=<?php echo "img/gallery_caroline/$num.jpg" ?>>
-      <?php } for ($num = 89; $num <= 109; $num++ ) { ?>
-      <a class="gallery_1 fancybox-button" rel="gallery_1 fancybox-button" href=<?php echo "img/gallery_caroline/$num.jpg" ?>>
-      <?php } ?>
-        <img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" src="img/caroline.jpg">
-        <p>Photos Caroline Rousseau</p>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery">
-      <?php for ($num = 1; $num <= 12; $num++ ) { ?>
-      <a class="gallery_2 fancybox-button" rel="gallery_2 fancybox-button" href=<?php echo "img/gallery_anthony/$num.jpg" ?>>
-      <?php } ?>
-        <img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" src="img/default.png">
-        <p>Photos Anthony Oblin</p>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery">
-      <?php for ($num = 1; $num <= 16; $num++ ) { ?>
-      <a class="gallery_3 fancybox-button" rel="gallery_3 fancybox-button" href=<?php echo "img/gallery_divers/$num.jpg" ?>>
-      <?php } for ($num = 57; $num <= 88; $num++ ) { ?>
-      <a class="gallery_3 fancybox-button" rel="gallery_3 fancybox-button" href=<?php echo "img/gallery_divers/$num.jpg" ?>>
-      <?php } ?>
-        <img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" src="img/default.png">
-        <p>Divers</p>
-      </a>
-    </div>
+<?php 
 
-  </div>
-</div>
+$content_photos = new Content();
 
-<?php if (!empty($_GET['photos'])) {
-  echo "FALSE";
-  echo "<META HTTP-EQUIV='Refresh' CONTENT='0; URL=index.php?photos'>";
-} ?>
+echo Content::setOpentag("div","container");
+
+  echo $content_photos->setOpenTag("div","col-lg-12 col-md-12 col-sm-12 col-xs-12 photo_gallery");
+
+    echo $content_photos->setOpenTag("div","col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery");
+
+      for ($num = 1; $num <= 56; $num++ ) {
+      echo "<a class=\"gallery_1 fancybox-button\" rel=\"gallery_1 fancybox-button\" href=img/gallery_caroline/$num.jpg\">";
+      }
+      for ($num = 89; $num <= 109; $num++ ) {
+      echo "<a class=\"gallery_1 fancybox-button\" rel=\"gallery_1 fancybox-button\" href=\"img/gallery_caroline/$num.jpg\">";
+      }
+      echo $content_photos->setImg("col-lg-12 col-md-12 col-sm-12 col-xs-12","img/caroline.jpg");
+      echo $content_photos->setContent("Photos Caroline Rousseau","p");
+
+      echo $content_photos->setClosetag("a");
+
+    echo $content_photos->setClosetag("div");
+
+
+
+    echo $content_photos->setOpenTag("div","col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery");
+
+      for ($num = 1; $num <= 12; $num++ ) {
+      echo "<a class=\"gallery_2 fancybox-button\" rel=\"gallery_2 fancybox-button\" href=\"img/gallery_anthony/$num.jpg\">";
+      }
+      echo $content_photos->setImg("col-lg-12 col-md-12 col-sm-12 col-xs-12","img/default.png");
+      echo $content_photos->setContent("Photos Anhony Oblin","p");
+
+      echo $content_photos->setClosetag("a");
+
+    echo $content_photos->setClosetag("div");
+
+
+    echo $content_photos->setOpenTag("div","col-lg-4 col-md-4 col-sm-4 col-xs-4 bloc_gallery");
+
+      for ($num = 1; $num <= 16; $num++ ) {
+      echo "<a class=\"gallery_3 fancybox-button\" rel=\"gallery_3 fancybox-button\" href=\"img/gallery_divers/$num.jpg\">";
+      }
+      echo $content_photos->setImg("col-lg-12 col-md-12 col-sm-12 col-xs-12","img/default.png");
+      echo $content_photos->setContent("Photos Divers","p");
+
+      echo $content_photos->setClosetag("a");
+
+    echo $content_photos->setClosetag("div");
+
+  echo $content_photos->setClosetag("div");
+
+echo Content::setCloseTag("div");
