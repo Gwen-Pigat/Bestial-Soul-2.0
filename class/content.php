@@ -222,11 +222,27 @@ class Content{
 		}
 	}
 
+	private function iframe($src, $class, $frame, $allow){
+		if (isset($frameborder)) {
+			return '<iframe class="'.$class.'" src="'.$src.'" frameborder="'.$frame.'"></iframe>';
+		}
+		if (isset($frameborder) && isset($allow)) {
+			return '<iframe class="'.$class.'" src="'.$src.'" frameborder="'.$frame.'" allowfullscreen></iframe>';
+		}
+		else{
+			return '<iframe class="'.$class.'" src="'.$src.'"></iframe>';
+		}
+	}
+
 
 	// Setters
 
 	public static function setInput($class, $name, $placeholder, $value){
 		return self::input($class, $name, $placeholder, $value);
+	}
+
+	public static function setFrame($src, $class, $frame, $allow){
+		return self::iframe($src, $class, $frame, $allow);
 	}
 
 	public static function setModal($id, $title, $arg){
